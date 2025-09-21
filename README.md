@@ -3,6 +3,9 @@
 ## Overview
 The AI Voice Portfolio Bot is a web application that allows users to interact with an AI assistant to learn about the portfolio of Gulshan Kumar. The bot is powered by OpenAI, LangChain, and FAISS, and includes features such as voice input, etc.
 
+## Demo Screenshot
+<img width="1907" height="904" alt="Screenshot 2025-09-22 033818" src="https://github.com/user-attachments/assets/1568de5a-3987-4db8-85b8-5184410ba25f" />
+
 ## Features
 - **AI-Powered Chatbot**: Ask questions about the portfolio and receive intelligent responses.
 - **Voice Interaction**: Use voice commands to interact with the bot.
