@@ -7,12 +7,19 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from dotenv import load_dotenv
 
 # Initialize Flask app
 app = Flask(__name__)
 
 # Load environment variables
-openai.api_key = "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"
+load_dotenv()
+
+# Retrieve OpenAI API key from environment variables
+openai_api_key = os.getenv("OPENAI_API_KEY")
+
+# Update OpenAI API key usage
+openai.api_key = openai_api_key
 
 # Ensure FAISS index file is created and saved properly
 # Generate embeddings and save the FAISS index if it doesn't exist
@@ -65,7 +72,7 @@ if not os.path.exists("portfolio_vectorstore/index.faiss"):
     texts = text_splitter.split_text('\n\n'.join(sections))
 
     # Generate embeddings for the chunks
-    embeddings = OpenAIEmbeddings(openai_api_key="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")
+    embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
     vectorstore = FAISS.from_texts(texts, embeddings)
 
     # Save the vector database for later use
@@ -73,7 +80,7 @@ if not os.path.exists("portfolio_vectorstore/index.faiss"):
     print("FAISS index file created and saved with preprocessed content in sections.")
 else:
     # Load FAISS vector database
-    embeddings = OpenAIEmbeddings(openai_api_key="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")
+    embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
     vectorstore = FAISS.load_local(
         "portfolio_vectorstore", 
         embeddings, 
@@ -82,7 +89,7 @@ else:
 
 # Create a Retrieval-based QA chain
 qa_chain = RetrievalQA.from_chain_type(
-    llm=OpenAI(openai_api_key="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"),
+    llm=OpenAI(openai_api_key=openai_api_key),
     retriever=vectorstore.as_retriever()
 )
 
